@@ -38,8 +38,6 @@ macos/
 web/
 assets/
 .idea/
-pubspec.yaml
-pubspec.lock
 linux/
 # Symbolication related
 app.*.symbols
