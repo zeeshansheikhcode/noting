@@ -21,6 +21,10 @@ workflows:
           echo "GCLOUD_SERVICE_ACCOUNT_CREDENTIALS: $CM_GCLOUD_SERVICE_ACCOUNT_CREDENTIALS"
           echo "flutter.sdk: $HOME/programs/flutter"
           echo "CM_BUILD_DIR: $CM_BUILD_DIR"
+          MAJOR_VERSION="3.0"
+          BUILD_NUMBER=$(($(google-play get-latest-build-number --package-name "$CM_PACKAGE_NAME" --tracks="$CM_GOOGLE_PLAY_TRACK") + 3))      
+          echo "Calculated BUILD_NUMBER: $BUILD_NUMBER"
+          echo "MAJOR_VERSION: $MAJOR_VERSION"
           # Add other debugging statements as needed
 
       - name: Set up local.properties
