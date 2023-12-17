@@ -45,6 +45,6 @@ workflows:
           success: true
           failure: false
       google_play:
-        credentials: $GCLOUD_SERVICE_ACCOUNT_CREDENTIALS
-        track: $GOOGLE_PLAY_TRACK
+        credentials: "$GCLOUD_SERVICE_ACCOUNT_CREDENTIALS"
+        track: "$GOOGLE_PLAY_TRACK"
         submit_as_draft: true 
