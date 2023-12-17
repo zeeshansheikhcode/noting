@@ -39,7 +39,8 @@ workflows:
       - name: Build AAB with Flutter
         script: |
           MAJOR_VERSION="2.0"
-          BUILD_NUMBER=$(($(google-play get-latest-build-number --package-name "$PACKAGE_NAME" --tracks="$GOOGLE_PLAY_TRACK") + 1))      
+          BUILD_NUMBER=$(($(google-play get-latest-build-number --package-name "$CM_PACKAGE_NAME" --tracks="$CM_GOOGLE_PLAY_TRACK") + 1))      
+          echo "Calculated BUILD_NUMBER: $BUILD_NUMBER"
           flutter build appbundle --release \
             --build-name=$MAJOR_VERSION.$BUILD_NUMBER \
             --build-number=$BUILD_NUMBER
