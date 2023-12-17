@@ -11,14 +11,14 @@ workflows:
       vars:
         PACKAGE_NAME: "$CM_PACKAGE_NAME" 
         GOOGLE_PLAY_TRACK: "$CM_GOOGLE_PLAY_TRACK"
-        GCLOUD_SERVICE_ACCOUNT_CREDENTIALS: "$GCLOUD_SERVICE_ACCOUNT_CREDENTIALS"
+        GCLOUD_SERVICE_ACCOUNT_CREDENTIALS: "$CM_GCLOUD_SERVICE_ACCOUNT_CREDENTIALS"
       flutter: stable
     scripts:
       - name: Debugging
         script: |
-          echo "PACKAGE_NAME: $PACKAGE_NAME"
-          echo "GOOGLE_PLAY_TRACK: $GOOGLE_PLAY_TRACK"
-          echo "GCLOUD_SERVICE_ACCOUNT_CREDENTIALS: $GCLOUD_SERVICE_ACCOUNT_CREDENTIALS"
+          echo "PACKAGE_NAME: $CM_PACKAGE_NAME"
+          echo "GOOGLE_PLAY_TRACK: $CM_GOOGLE_PLAY_TRACK"
+          echo "GCLOUD_SERVICE_ACCOUNT_CREDENTIALS: $CM_GCLOUD_SERVICE_ACCOUNT_CREDENTIALS"
           echo "flutter.sdk: $HOME/programs/flutter"
           echo "CM_BUILD_DIR: $CM_BUILD_DIR"
           # Add other debugging statements as needed
@@ -54,8 +54,8 @@ workflows:
           success: true
           failure: false
       google_play:
-        credentials: "$GCLOUD_SERVICE_ACCOUNT_CREDENTIALS"
-        track: "$GOOGLE_PLAY_TRACK"
+        credentials: "$CM_GCLOUD_SERVICE_ACCOUNT_CREDENTIALS"
+        track: "$CM_GOOGLE_PLAY_TRACK"
         submit_as_draft: true
 
 # workflows:
