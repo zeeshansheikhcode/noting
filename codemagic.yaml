@@ -14,6 +14,15 @@ workflows:
         GCLOUD_SERVICE_ACCOUNT_CREDENTIALS: "$GCLOUD_SERVICE_ACCOUNT_CREDENTIALS"
       flutter: stable
     scripts:
+      - name: Debugging
+        script: |
+          echo "PACKAGE_NAME: $PACKAGE_NAME"
+          echo "GOOGLE_PLAY_TRACK: $GOOGLE_PLAY_TRACK"
+          echo "GCLOUD_SERVICE_ACCOUNT_CREDENTIALS: $GCLOUD_SERVICE_ACCOUNT_CREDENTIALS"
+          echo "flutter.sdk: $HOME/programs/flutter"
+          echo "CM_BUILD_DIR: $CM_BUILD_DIR"
+          # Add other debugging statements as needed
+
       - name: Set up local.properties
         script: |
           echo "flutter.sdk=$HOME/programs/flutter" > "$CM_BUILD_DIR/android/local.properties"
@@ -47,4 +56,55 @@ workflows:
       google_play:
         credentials: "$GCLOUD_SERVICE_ACCOUNT_CREDENTIALS"
         track: "$GOOGLE_PLAY_TRACK"
-        submit_as_draft: true 
+        submit_as_draft: true
+
+# workflows:
+#   android-workflow:
+#     name: Android Workflow
+#     instance_type: mac_mini_m1
+#     max_build_duration: 120
+#     environment:
+#       android_signing:
+#         - noting_reference
+#       groups:
+#         - google_play 
+#       vars:
+#         PACKAGE_NAME: "$CM_PACKAGE_NAME" 
+#         GOOGLE_PLAY_TRACK: "$CM_GOOGLE_PLAY_TRACK"
+#         GCLOUD_SERVICE_ACCOUNT_CREDENTIALS: "$GCLOUD_SERVICE_ACCOUNT_CREDENTIALS"
+#       flutter: stable
+#     scripts:
+#       - name: Set up local.properties
+#         script: |
+#           echo "flutter.sdk=$HOME/programs/flutter" > "$CM_BUILD_DIR/android/local.properties"
+#       - name: Get Flutter packages
+#         script: |
+#           flutter packages pub get
+#       - name: Flutter analyze
+#         script: |
+#           flutter analyze
+#       - name: Flutter unit tests
+#         script: |
+#           flutter test
+#         ignore_failure: true
+#       - name: Build AAB with Flutter
+#         script: |
+#           BUILD_NUMBER=$(($(google-play get-latest-build-number --package-name "$PACKAGE_NAME" --tracks="$GOOGLE_PLAY_TRACK") + 1))      
+#           flutter build appbundle --release \
+#             --build-name=1.1.$BUILD_NUMBER \
+#             --build-number=$BUILD_NUMBER
+#     artifacts:
+#       - build/**/outputs/**/*.aab
+#       - build/**/outputs/**/mapping.txt
+#       - flutter_drive.log
+#     publishing:
+#       email:
+#         recipients:
+#           - zeeshansheikh921837@gmail.com
+#         notify:
+#           success: true
+#           failure: false
+#       google_play:
+#         credentials: "$GCLOUD_SERVICE_ACCOUNT_CREDENTIALS"
+#         track: "$GOOGLE_PLAY_TRACK"
+#         submit_as_draft: true 
