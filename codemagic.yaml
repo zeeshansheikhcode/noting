@@ -25,7 +25,6 @@ workflows:
           BUILD_NUMBER=$(($(google-play get-latest-build-number --package-name "$CM_PACKAGE_NAME" --tracks="$CM_GOOGLE_PLAY_TRACK") + 3))      
           echo "Calculated BUILD_NUMBER: $BUILD_NUMBER"
           echo "MAJOR_VERSION: $MAJOR_VERSION"
-          # Add other debugging statements as needed
 
       - name: Set up local.properties
         script: |
@@ -61,7 +60,7 @@ workflows:
           failure: false
       google_play:
         credentials: $CM_GCLOUD_SERVICE_ACCOUNT_CREDENTIALS
-        track: "production"
+        track: $CM_GOOGLE_PLAY_TRACK
         submit_as_draft: true
 
 # workflows:
