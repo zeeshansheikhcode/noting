@@ -12,7 +12,7 @@ workflows:
         PACKAGE_NAME: "$CM_PACKAGE_NAME" 
         GOOGLE_PLAY_TRACK: "$CM_GOOGLE_PLAY_TRACK"
         GCLOUD_SERVICE_ACCOUNT_CREDENTIALS: "$CM_GCLOUD_SERVICE_ACCOUNT_CREDENTIALS"
-      flutter: stable
+      flutter: "3.10.6"
     scripts:
       - name: Debugging
         script: |
