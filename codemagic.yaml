@@ -10,19 +10,17 @@ workflows:
         - google_play 
       vars:
         PACKAGE_NAME: "$CM_PACKAGE_NAME" 
-        GOOGLE_PLAY_TRACK: "$CM_GOOGLE_PLAY_TRACK"
         GCLOUD_SERVICE_ACCOUNT_CREDENTIALS: "$CM_GCLOUD_SERVICE_ACCOUNT_CREDENTIALS"
       flutter: "3.10.6"
     scripts:
       - name: Debugging
         script: |
           echo "PACKAGE_NAME: $CM_PACKAGE_NAME"
-          echo "GOOGLE_PLAY_TRACK: $CM_GOOGLE_PLAY_TRACK"
           echo "GCLOUD_SERVICE_ACCOUNT_CREDENTIALS: $CM_GCLOUD_SERVICE_ACCOUNT_CREDENTIALS"
           echo "flutter.sdk: $HOME/programs/flutter"
           echo "CM_BUILD_DIR: $CM_BUILD_DIR"
           MAJOR_VERSION="3.0"
-          BUILD_NUMBER=$(($(google-play get-latest-build-number --package-name "$CM_PACKAGE_NAME" --tracks="$CM_GOOGLE_PLAY_TRACK" --credentials="$CM_GCLOUD_SERVICE_ACCOUNT_CREDENTIALS") + 1))      
+          BUILD_NUMBER=$(($(google-play get-latest-build-number --package-name "$CM_PACKAGE_NAME" --tracks=production --credentials="$CM_GCLOUD_SERVICE_ACCOUNT_CREDENTIALS") + 1))      
           echo "Calculated BUILD_NUMBER: $BUILD_NUMBER"
           echo "MAJOR_VERSION: $MAJOR_VERSION"
 
@@ -42,7 +40,7 @@ workflows:
       - name: Build AAB with Flutter
         script: |
           MAJOR_VERSION="3.0"
-          BUILD_NUMBER=$(($(google-play get-latest-build-number --package-name "$CM_PACKAGE_NAME" --tracks="$CM_GOOGLE_PLAY_TRACK" --credentials="$CM_GCLOUD_SERVICE_ACCOUNT_CREDENTIALS") + 1))      
+          BUILD_NUMBER=$(($(google-play get-latest-build-number --package-name "$CM_PACKAGE_NAME" --tracks=production --credentials="$CM_GCLOUD_SERVICE_ACCOUNT_CREDENTIALS") + 1))      
           echo "Calculated BUILD_NUMBER: $BUILD_NUMBER"
           flutter build appbundle --release \
             --build-name=$MAJOR_VERSION.$BUILD_NUMBER \
@@ -60,7 +58,7 @@ workflows:
           failure: false
       google_play:
         credentials: $CM_GCLOUD_SERVICE_ACCOUNT_CREDENTIALS
-        track: "production"
+        track: production
         submit_as_draft: true
 
 # workflows:
