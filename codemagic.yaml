@@ -59,7 +59,7 @@ workflows:
       google_play:
         credentials: $CM_GCLOUD_SERVICE_ACCOUNT_CREDENTIALS
         track: production
-        submit_as_draft: true
+
 
 # workflows:
 #   android-workflow:
