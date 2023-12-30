@@ -13,7 +13,7 @@ class InAppScreen extends StatelessWidget {
       body: const Column(
         children: 
         [
-          
+          Text('in app'),
         ],
       ),
     );
