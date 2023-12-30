@@ -3,10 +3,13 @@ workflows:
     name: Android Workflow
     instance_type: mac_mini_m1
     max_build_duration: 120
-    on:
-      push:
-        branches:
-          - main
+    triggering:
+       events:
+         - push
+       branch_patterns:
+         - pattern: 'main'
+           include: true
+           source: true 
     environment:
       android_signing:
         - noting_reference
